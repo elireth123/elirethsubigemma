@@ -146,7 +146,7 @@ function TRP2RE_Ficha ( AllFlds )
       TRP2RE["Habilidades"] = {}
    end	  
    for LoopVar = 4, table.getn(AllFlds) - 1 do
-      local RE_Nombre, RE_Valor, RE_Efecto, RE_Atributo = strsplit ( ".", AllFlds[LoopVar] )
+      local RE_Nombre, RE_Valor, RE_Efecto, RE_Atributo, RE_Code = strsplit ( ".", AllFlds[LoopVar] )
       TRP2RE["Habilidades"][RE_Nombre] = { RE_Valor, RE_Efecto, RE_Atributo }
    end
    

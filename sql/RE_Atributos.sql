@@ -1,4 +1,4 @@
-CREATE TABLE RE_Attributos (
+CREATE TABLE RE_Atributos (
   RE_pj varchar(120) NOT NULL DEFAULT '',
   RE_Fisico int(10) unsigned NOT NULL DEFAULT '0',
   RE_Destreza int(10) unsigned NOT NULL DEFAULT '0',

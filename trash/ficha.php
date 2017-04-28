@@ -4,32 +4,32 @@
 include_once ("classes/setup.php");
 if (isset ($_POST["RE_pj"]))
 {
-        $MyQuery="update RE_Atributos set RE_Fisico = " . $_POST["RE_FIS"] . ", ".
-            "RE_Destreza = " . $_POST["RE_DES"] . ", ".
-                "RE_Inteligencia = " . $_POST["RE_INT"] . ", ".
-                "RE_Percepcion = " . $_POST["RE_PER"] . ", ".
-                "RE_Mana = " . $_POST["RE_MAN"] . ", ".
-                "RE_Vida = " . $_POST["RE_VID"] . ", ".
-                "RE_Iniciativa = " . $_POST["RE_INI"] . ", ".
-                "RE_Defensa = " . $_POST["RE_DEF"] . " where RE_pj ='". $_POST["RE_pj"] ."';";
-        $db_chars->doQuery($MyQuery);
-        for ($LoopVar=0 ; $LoopVar < $_POST["RE_NumHab_pj"]; $LoopVar++)
-        {
-           $IdxRE_Nom = sprintf ("RE_ID%d", $LoopVar);
-           $IdxRE_Val = sprintf ("RE_Val%d", $LoopVar);
-           $MyQuery_t = "update RE_Habilidades_pj set RE_Valor = ". $_POST[$IdxRE_Val] .
+	$MyQuery="update RE_Atributos set RE_Fisico = " . $_POST["RE_FIS"] . ", ".
+	    "RE_Destreza = " . $_POST["RE_DES"] . ", ".
+		"RE_Inteligencia = " . $_POST["RE_INT"] . ", ".
+		"RE_Percepcion = " . $_POST["RE_PER"] . ", ".
+		"RE_Mana = " . $_POST["RE_MAN"] . ", ".
+		"RE_Vida = " . $_POST["RE_VID"] . ", ".
+		"RE_Iniciativa = " . $_POST["RE_INI"] . ", ".
+		"RE_Defensa = " . $_POST["RE_DEF"] . " where RE_pj ='". $_POST["RE_pj"] ."';";
+	$db_chars->doQuery($MyQuery);
+	for ($LoopVar=0 ; $LoopVar < $_POST["RE_NumHab_pj"]; $LoopVar++)
+	{
+	   $IdxRE_Nom = sprintf ("RE_ID%d", $LoopVar);
+	   $IdxRE_Val = sprintf ("RE_Val%d", $LoopVar);
+           $MyQuery_t = "update RE_Habilidades_pj set RE_Valor = ". $_POST[$IdxRE_Val] . 
                       " where RE_pj = '" . $_POST["RE_pj"] .
                       "' and RE_ID = " . $_POST[$IdxRE_Nom] .";";
            $db_chars->doQuery($MyQuery_t);
-        }
-        if (isset($_POST["RE_NomX"]) && $_POST["RE_NomX"] != "" )
-        {
-           $MyQuery="insert into RE_Habilidades_pj ( RE_pj, RE_ID, RE_Valor ) values ('" .
-               $_POST["RE_pj"] . "', " .
-               $_POST["RE_NomX"] .", " .
-               $_POST["RE_ValX"] . ");";
-           $db_chars->doQuery($MyQuery);
-        }
+	}	 
+        if (isset($_POST["RE_NomX"]) && $_POST["RE_NomX"] != ""	)
+	{
+	   $MyQuery="insert into RE_Habilidades_pj ( RE_pj, RE_ID, RE_Valor ) values ('" . 
+	       $_POST["RE_pj"] . "', " .
+	       $_POST["RE_NomX"] .", " .
+	       $_POST["RE_ValX"] . ");";
+	   $db_chars->doQuery($MyQuery);
+	}
 }
 
 $CHab=array();
@@ -58,9 +58,9 @@ if ($RE_pj != "")
       $RE_Vid=$MyRow["RE_Vida"];
       $RE_Man=$MyRow["RE_Mana"];
       $RE_Ini=$MyRow["RE_Iniciativa"];
-      $RE_Def=$MyRow["RE_Defensa"];
+      $RE_Def=$MyRow["RE_Defensa"];	   
       $PFound=true;
-   }
+   }	   
    echo "<script>\n";
    echo "var REH_Nombre = new Array();\n";
    echo "var REH_Efecto = new Array();\n";
@@ -78,7 +78,7 @@ if ($RE_pj != "")
       echo "REH_Nombre[". $MyRow["RE_ID"] ."]='".$MyRow["RE_Nombre"]."';\n";
       echo "REH_Efecto[". $MyRow["RE_ID"] ."]='".$MyRow["RE_Efecto"]."';\n";
       echo "REH_Atributo[". $MyRow["RE_ID"] ."]='".$MyRow["RE_Atributo"]."';\n";
-   }
+   }  
    echo "</script>\n";
    $db_chars->doQuery("select RE_ID, RE_Valor from RE_Habilidades_pj where RE_pj ='".$RE_pj."';");
    while ($MyRow=$db_chars->NextRow())
@@ -91,19 +91,19 @@ if ($RE_pj != "")
    }
 }
 else
-        echo ("<script>\ndocument.location='nouveaupj.php';\n</script>\n");
+	echo ("<script>\ndocument.location='nouveaupj.php';\n</script>\n");
 
 if (!$PFound)
-        die("Player not found!!");
+	die("Player not found!!");
 
 ?>
 <script>
 function HabCh(MyObj)
 {
    var MyEfe = document.getElementById ("RE_EfeX");
-   MyEfe.value = REH_Efecto[MyObj.value];
+   MyEfe.value = REH_Efecto[MyObj.value]; 
    var MyAtr = document.getElementById ("RE_AtrX");
-   MyAtr.value = REH_Atributo[MyObj.value];
+   MyAtr.value = REH_Atributo[MyObj.value]; 
 }
 </script>
 </head>
@@ -150,9 +150,9 @@ foreach ($CHab_pj as $MyKey => $MyValue)
    echo "<input readonly size=30 id=RE_Nom" . $MyKey ." name=RE_Nom" . $MyKey ." value='" . $CHab[$MyIdx]["RE_Nombre"] . "'></td>";
    echo "<td align=left>";
    echo "<input size=2 id=RE_Val" . $MyKey ." name=RE_Val" . $MyKey ." value='" . $MyValue["RE_Valor"] . "'></td>";
-   echo "<td align=left>";
+   echo "<td align=left>";                                    
    echo "<input readonly size=50 id=RE_Efe" . $MyKey ." name=RE_Efe" . $MyKey ." value='" . $CHab[$MyIdx]["RE_Efecto"] . "'></td>";
-   echo "<td align=left>";
+   echo "<td align=left>";                                   
    echo "<input readonly size=20 id=RE_Atr" . $MyKey ." name=RE_Atr" . $MyKey ." value='" . $CHab[$MyIdx]["RE_Atributo"] . "'></td></tr>\n";
 }
 ?>
@@ -160,7 +160,7 @@ foreach ($CHab_pj as $MyKey => $MyValue)
 <select id=RE_NomX name=RE_NomX onchange="HabCh(this)">
 <option selected value=''></option>
 <?php
-foreach($CHab as $MyKey => $MyValue)
+foreach($CHab as $MyKey => $MyValue) 
 {
    echo "<option value=".$MyKey.">".$MyValue["RE_Nombre"]."</option>\n";
 }
@@ -168,9 +168,9 @@ foreach($CHab as $MyKey => $MyValue)
 </select>
 <td align=left>
 <input value='0' size=2 id=RE_ValX name=RE_ValX ></td>
-<td align=left>
+<td align=left>                
 <input value='' size=50 id=RE_EfeX name=RE_EfeX ></td>
-<td align=left>
+<td align=left>                
 <input value='' size=20 id=RE_AtrX name=RE_AtrX ></td></tr>
 </table>
 <HR>

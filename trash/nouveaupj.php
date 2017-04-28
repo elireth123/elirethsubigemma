@@ -4,16 +4,16 @@
 include_once ("classes/setup.php");
 if (isset ($_POST["RE_pj"]))
 {
-        $MyQuery="insert into RE_Atributos (RE_pj, RE_Fisico, RE_Destreza, RE_Inteligencia, RE_Percepcion, RE_Mana, RE_Vida, RE_Iniciativa, RE_Defensa) values ( '" . $_POST["RE_pj"] . "', " .
-            $_POST["RE_FIS"] . ", ".
-            $_POST["RE_DES"] . ", ".
-                $_POST["RE_INT"] . ", ".
-                $_POST["RE_PER"] . ", ".
-                $_POST["RE_MAN"] . ", ".
-                $_POST["RE_VID"] . ", ".
-                $_POST["RE_INI"] . ", ".
-                $_POST["RE_DEF"] . ");";
-        $db_chars->doQuery($MyQuery);
+	$MyQuery="insert into RE_Atributos (RE_pj, RE_Fisico, RE_Destreza, RE_Inteligencia, RE_Percepcion, RE_Mana, RE_Vida, RE_Iniciativa, RE_Defensa) values ( '" . $_POST["RE_pj"] . "', " .
+	    $_POST["RE_FIS"] . ", ".
+	    $_POST["RE_DES"] . ", ".
+		$_POST["RE_INT"] . ", ".
+		$_POST["RE_PER"] . ", ".
+		$_POST["RE_MAN"] . ", ".
+		$_POST["RE_VID"] . ", ".
+		$_POST["RE_INI"] . ", ".
+		$_POST["RE_DEF"] . ");";
+	$db_chars->doQuery($MyQuery);
 }
 ?>
 </head>
@@ -41,3 +41,4 @@ if (isset ($_POST["RE_pj"]))
 <input type=submit value='Guardar'>
 </form>
 </body>
+</html>

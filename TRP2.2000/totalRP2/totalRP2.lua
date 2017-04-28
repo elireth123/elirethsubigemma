@@ -120,7 +120,7 @@ function TRP2RE_Ficha ( AllFlds )
    if TRP2RE == nil then
       TRP2RE = {}
    end	  
-
+   TRP2RE["Habilidades"] = nil
    TRP2RE["RE_pj"] = UnitName ("player")
    TRP2RE["RE_Fisico"] = tonumber(RE_Fisico)
    TRP2RE["RE_Destreza"] = tonumber(RE_Destreza)
@@ -146,8 +146,8 @@ function TRP2RE_Ficha ( AllFlds )
       TRP2RE["Habilidades"] = {}
    end	  
    for LoopVar = 4, table.getn(AllFlds) - 1 do
-      local RE_Nombre, RE_Valor, RE_Efecto, RE_Atributo, RE_Code = strsplit ( ".", AllFlds[LoopVar] )
-      TRP2RE["Habilidades"][RE_Nombre] = { RE_Valor, RE_Efecto, RE_Atributo }
+      local RE_ID, RE_Valor = strsplit ( ".", AllFlds[LoopVar] )
+      TRP2RE["Habilidades"][RE_ID] = RE_Valor
    end
    
 end
@@ -160,7 +160,9 @@ function TRP2REAddFicha ()
    HabStr = ""
    if ( TRP2RE["Habilidades"] ~= nil ) then
       for MyKey,MyValue in pairs(TRP2RE["Habilidades"]) do
-	     HabStr = HabStr .. "\n" .. MyKey .. ":" .. MyValue[1] .. " (" .. MyValue[2] .. ") - [" .. MyValue[3] .. "]"
+	     HabStr = HabStr .. "\n" .. TRP2RE["GlobalHab"][MyKey]["RE_Nombre"] .. 
+		          ":" .. MyValue .. " (" .. TRP2RE["GlobalHab"][MyKey]["RE_Efecto"] .. ") - [" .. 
+				  TRP2RE["GlobalHab"][MyKey]["RE_Atributo"] .. "]"
 	  end
    end
    ABText:SetTitle("Rol Errante - Ficha de rol - " .. UnitName("player"))
@@ -183,11 +185,14 @@ function TRP2REAddFicha ()
    ABText:AddChild (LB1)
 end
 function TRP2REQueryFicha ( AllFlds )
+   print ( AllFlds[4] )
    local RE_Fisico, RE_Destreza, RE_Inteligencia, RE_Percepcion, RE_Mana, RE_Vida, RE_Iniciativa, RE_Defensa, Buff = strsplit ( ".", AllFlds[3] )
    local HabStr = ""
    for LoopVar = 4, table.getn(AllFlds) - 1 do
-      local RE_Nombre, RE_Valor, RE_Efecto, RE_Atributo = strsplit ( ".", AllFlds[LoopVar] )
-      HabStr = HabStr .. "\n" .. RE_Nombre .. ":" .. RE_Valor .. " (" .. RE_Efecto ..") - [" .. RE_Atributo .."]"
+      local RE_ID, RE_Valor = strsplit ( ".", AllFlds[LoopVar] )
+      HabStr = HabStr .. "\n" .. TRP2RE["GlobalHab"][RE_ID]["RE_Nombre"] .. ":" 
+	           .. RE_Valor .. " (" .. TRP2RE["GlobalHab"][RE_ID]["RE_Efecto"] ..") - [" 
+			   .. TRP2RE["GlobalHab"][RE_ID]["RE_Atributo"] .."]"
    end
    
    local AceGUI = LibStub("AceGUI-3.0")
